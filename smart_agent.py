@@ -146,9 +146,9 @@ class SparseAgent(base_agent.BaseAgent):
       self.qlearn.q_table = pd.read_pickle(DATA_FILE + '.gz', compression='gzip')
 
   @staticmethod
-  def check_position_validity(*position):
+  def check_position_validity(*position, size=84):
     # Clip invalid position due to maybe camera calculation (refer to Timo)
-    return 0 <= position[0] < 84 and 0 <= position[1] < 84
+    return 0 <= position[0] < size and 0 <= position[1] < size
 
   def transform_distance(self, x, x_distance, y, y_distance):
     if not self.base_top_left:
@@ -326,7 +326,7 @@ class SparseAgent(base_agent.BaseAgent):
           y_offset = random.randint(-1, 1)
 
           target = self.transform_location(int(x) + (x_offset * 8), int(y) + (y_offset * 8))
-          if self.check_position_validity(*target):
+          if self.check_position_validity(*target, 64):
             return actions.FUNCTIONS.Attack_minimap('now', target)
 
     if self.move_number == 2:
