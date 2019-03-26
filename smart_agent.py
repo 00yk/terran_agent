@@ -326,7 +326,7 @@ class SparseAgent(base_agent.BaseAgent):
           y_offset = random.randint(-1, 1)
 
           target = self.transform_location(int(x) + (x_offset * 8), int(y) + (y_offset * 8))
-          if self.check_position_validity(*target, 64):
+          if self.check_position_validity(*target, size=63):
             return actions.FUNCTIONS.Attack_minimap('now', target)
 
     if self.move_number == 2:
